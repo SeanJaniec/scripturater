@@ -7,11 +7,12 @@ export default {
   data() {
     return {
       word: {id:0, word:"hebrews"},
-      numberWordsRated: 0
+      numberWordsRated: -1
     }
   },
   methods:{
     async loadNewWord() {
+
       const result = await fetch("http://localhost:3000/api/words/random");
       const word = await result.json();
 
@@ -45,23 +46,41 @@ export default {
 
 <template>
 
-  <h1>Scripturater</h1>
+  <div>
+    <h1>Scripturater</h1>
 
-  <h2>{{word.word}}</h2>
+    <h2>{{word.word}}</h2>
 
-  <h3>{{numberWordsRated}}</h3>
+    <h3></h3>
 
-  <a href="" @click.prevent="submitRating(word.id, 'like')">🙁</a>
-  <a href="" @click.prevent="submitRating(word.id, 'neutral')">😐</a>
-  <a href="" @click.prevent="submitRating(word.id, 'dislike')">🙂</a>
+    <h3>Words rated: {{numberWordsRated}}</h3>
 
-  <br>
+    <a href="" @click="loadNewWord" @click.prevent="submitRating(word.id, 'like')">🙁</a>
+    <a href="" @click="loadNewWord" @click.prevent="submitRating(word.id, 'neutral')">😐</a>
+    <a href="" @click="loadNewWord" @click.prevent="submitRating(word.id, 'dislike')">🙂</a>
 
-  <button @click="loadNewWord">Get Another Word</button>
+    <br>
+
+    <button @click="loadNewWord">Get Another Word</button>
+
+    
+    <div class="list">
+      <ul class="ratedList">
+        <li>Proverb</li>
+        <li>Hebrews</li>
+      </ul>
+    </div>
+    
+  </div>
 
 </template>
 
 <style>
+*{
+  background-color: #121212;
+  color: white;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -74,5 +93,28 @@ export default {
 a {
   font-size: 8em;
   text-decoration: none;
+  
 }
+
+a:hover{
+   transform: scale(1.2);
+   
+}
+
+.ratedList{
+  border: white 3px solid;
+  list-style-type: none;
+  width: 20vw;
+  margin: auto;
+  padding: 10px;
+  background-color: #252424;
+  
+}
+
+.list{
+  margin: 20px;
+  
+}
+
+
 </style>
