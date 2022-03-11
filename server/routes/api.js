@@ -153,6 +153,19 @@ router.post("/words/:id/ratings", function (req, res, next) {
 */
 router.put( '/words/:wordId/ratings/:ratingId', (req, res)=> {
   
+  const newRating = req.body.rating;
+  const currentRating = ratings.find( r => r.id===ratingId )
+
+  if( currentRating ){
+    
+    currentRating.rating = newRating;
+    }
+    else {
+      res.status(404).send("No rating with that id");
+    }
+   
+  
+
 });
 
 
@@ -161,6 +174,18 @@ router.put( '/words/:wordId/ratings/:ratingId', (req, res)=> {
 /* delete an existing rating object for a given word
 */
 router.delete( '/words/:wordId/ratings/:ratingId', (req, res)=> {
+  const ratingId = req.params.ratingId;
+  const rating = ratings.find( r => r.id===ratingId );
+
+  if( rating ){
+    
+  ratings = ratings.filter(rating => rating.id !== ratingId)
+    res.send(rating);
+  }
+  else {
+    res.status(404).send("No rating with that id");
+  }
+ 
   
 });
 

@@ -11,6 +11,12 @@ export default {
     }
   },
   methods:{
+    async append() {
+      var node = document.createElement('li');
+      node.appendChild(document.createTextNode(word.word));
+ 
+      document.querySelector('ul').appendChild(node);
+    },
     async loadNewWord() {
 
       const result = await fetch("http://localhost:3000/api/words/random");
@@ -107,7 +113,7 @@ a:hover{
   width: 20vw;
   margin: auto;
   padding: 10px;
-  background-color: #252424;
+  
   
 }
 
